@@ -1,45 +1,40 @@
 package com.dan.crud.api.config;
 
+import java.util.Collections;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+
 @EnableSwagger2
 public class SwaggerConfig {
-    
+
 	@Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-          .select()
-          .apis(RequestHandlerSelectors.basePackage("com.dan"))
-          .paths(PathSelectors.any())
-          .build();
-    }
+	public Docket api() {
+		return new Docket(DocumentationType.SWAGGER_2)
+				.select()
+				.apis(RequestHandlerSelectors.basePackage("com.dan.crud.api"))
+				//.apis(RequestHandlerSelectors.any())
+				.paths(PathSelectors.any())
+				.build();
+				//.apiInfo(apiInfo());
+	}
 	
-	 protected void addResourceHandlers(ResourceHandlerRegistry registry) {
-       registry.addResourceHandler("swagger-ui.html")
-           .addResourceLocations("classpath:/META-INF/resources/");
-
-       registry.addResourceHandler("/webjars/**")
-           .addResourceLocations("classpath:/META-INF/resources/webjars/");
-     }
-	 
-	 private static final String[] AUTH_WHITELIST = {
-		        "/swagger-resources/**",
-		        "/swagger-ui.html",
-		        "/v2/api-docs",
-		        "/webjars/**"
-		};
-
-		public void configure(WebSecurity web)throws Exception {
-		    web.ignoring().requestMatchers("/swagger-resources/**");
-		}
-		
+//	private ApiInfo apiInfo() {
+//		return new ApiInfo(
+//				"Api Rest Java 8 + Spring boot + MongoDB", 
+//				"",
+//				"v1",
+//				"Terms Of Service Url",
+//				new Contact("Danilo Azevedo", "", "danilo.azevedosanti@gmail.com"),
+//				"License of API", "License of URL", Collections.emptyList());
+//	}
 }

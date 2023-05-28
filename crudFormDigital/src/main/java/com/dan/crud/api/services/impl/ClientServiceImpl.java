@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dan.crud.api.models.Client;
+import com.dan.crud.api.models.Product;
 import com.dan.crud.api.repositories.ClientRepository;
 import com.dan.crud.api.services.ClientService;
 
@@ -15,7 +16,7 @@ public class ClientServiceImpl implements ClientService {
 
 	@Autowired
 	private ClientRepository cliente;
-	
+
 	@Override
 	public List<Client> listAll() {
 		return this.cliente.findAll();
@@ -42,8 +43,13 @@ public class ClientServiceImpl implements ClientService {
 	}
 
 	@Override
-	public Client Contratacao(String idProduto, String idCliente) {
-		// TODO Auto-generated method stub
+	public Client Contratacao(Product produto, Client cliente) {
+		if (cliente.getRenda() >= produto.getLimiteRenda()) {
+			cliente.setProduto(produto.getId());
+			var clienteAtualizado = this.cliente.save(cliente);
+			return clienteAtualizado;
+		}
+		
 		return null;
 	}
 

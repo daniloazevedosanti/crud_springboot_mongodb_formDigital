@@ -10,7 +10,6 @@ public class Client {
 	private String id;
 	private String nome;
 	private String cpf;
-	private String email;
 	private Double renda;
 	private String idProduto;
 	
@@ -34,13 +33,6 @@ public class Client {
 		this.nome = nome;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
 	public String getCpf() {
 		return cpf;

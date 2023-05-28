@@ -16,6 +16,14 @@ public class Product {
 		
 	}
 	
+	public Product(String id, String nomeProduto, Double limiteRenda, String tipo) {
+		super();
+		this.id = id;
+		this.nomeProduto = nomeProduto;
+		this.limiteRenda = limiteRenda;
+		this.tipo = tipo;
+	}
+	
 	public String getId() {
 		return id;
 	}

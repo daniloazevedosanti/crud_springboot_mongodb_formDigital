@@ -70,34 +70,51 @@ public class FormDigitalController {
 	public ResponseEntity<Optional<Product>> listarProductPorId(@PathVariable(name = "id") String id) {
 		return ResponseEntity.ok(this.ProductService.listById(id));
 	}
+	
+	@GetMapping(path = "/produto/simular/{idClient}")
+	public ResponseEntity<List<Product>> simularContratacao(@PathVariable(name = "idClient") String idClient) {
 
-	@PostMapping(path = "/produto")
-	public ResponseEntity<Product> cadastrarProduct(Product Product) {
-		return ResponseEntity.ok(this.ProductService.register(Product));
+		var Client = this.ClientService.listById(idClient).get();
+		var objRetorno = this.ProductService.simularContratacao(Client);
+
+		return ResponseEntity.ok(objRetorno);
 	}
-
+	
 	@PutMapping(path = "/produto/{id}")
 	public ResponseEntity<Product> atualizarProduct(@PathVariable(name = "id") String id,
 			@RequestBody Product Product) {
 		Product.setId(id);
 		return ResponseEntity.ok(this.ProductService.register(Product));
 	}
-
-	@DeleteMapping(path = "/produto/{id}")
-	public ResponseEntity<Integer> deletarProduct(@PathVariable(name = "id") String id) {
-		this.ProductService.remove(id);
-		return ResponseEntity.ok(1);
-	}
-
-	/*public ResponseEntity<List<Product>> simularContratacao(@PathVariable(name = "idClient") String idClient) {
-
-		var Client = this.ClientService.listById(idClient).get();
-		var objRetorno = this.contratar.simularContratacao(Client);
-
-		return ResponseEntity.ok(objRetorno);
-	}
-
+	
+	@GetMapping(path = "/cliente/contratar/{idClient}/{idProduct}")
 	public ResponseEntity<String> contratacao(@PathVariable(name = "idProduct") String idProduct, @PathVariable(name = "idClient") String idClient) {
+
+		var cliente = this.ClientService.listById(idClient).get();
+		var produto = this.ProductService.listById(idProduct).get();
+		
+		var clienteN = this.ClientService.Contratacao(produto, cliente);
+		
+		return ResponseEntity.ok("Sucesso na contratação! - Cliente cpf:" 
+		+ clienteN.getCpf() + ", Id Produto: " + clienteN.getProduto() );
+	}
+
+//	@PostMapping(path = "/produto")
+//	public ResponseEntity<Product> cadastrarProduct(Product Product) {
+//		return ResponseEntity.ok(this.ProductService.register(Product));
+//	}
+
+	
+
+//	@DeleteMapping(path = "/produto/{id}")
+//	public ResponseEntity<Integer> deletarProduct(@PathVariable(name = "id") String id) {
+//		this.ProductService.remove(id);
+//		return ResponseEntity.ok(1);
+//	}
+
+	
+
+	/*public ResponseEntity<String> contratacao(@PathVariable(name = "idProduct") String idProduct, @PathVariable(name = "idClient") String idClient) {
 
 		this.contratar.Contratacao(idProduct, idClient);
 		return ResponseEntity.ok("Sucesso na contratação!");

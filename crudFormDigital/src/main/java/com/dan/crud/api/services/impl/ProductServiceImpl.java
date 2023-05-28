@@ -1,5 +1,6 @@
 package com.dan.crud.api.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dan.crud.api.models.Product;
+import com.dan.crud.api.models.Client;
 import com.dan.crud.api.repositories.ProductRepository;
 import com.dan.crud.api.services.ProductService;
 
@@ -37,9 +39,17 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Product simularContratacao(String idProduto, String idCliente) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Product> simularContratacao(Client cliente) {
+		var list = this.produto.findAll();
+		
+		List<Product> listaRetorno = new ArrayList<Product>();
+		
+		for(Product item : list) {
+			
+			if (cliente.getRenda() >= item.getLimiteRenda())
+				listaRetorno.add(item);
+		}
+		return listaRetorno;
 	}
 
 }

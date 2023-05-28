@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.dan.crud.api.models.Product;
+import com.dan.crud.api.models.Client;
 
 public interface ProductService {
 
@@ -13,9 +14,7 @@ public interface ProductService {
 	
 	Product register(Product obj);
 	
-	//Product updateRegister(Product obj);
-	
 	void remove(String id);
 	
-	Product simularContratacao(String idProduto, String idCliente);
+	List<Product> simularContratacao(Client cliente);
 }

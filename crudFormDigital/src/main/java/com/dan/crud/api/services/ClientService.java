@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.dan.crud.api.models.Client;
+import com.dan.crud.api.models.Product;
 
 public interface ClientService {
 
@@ -17,5 +18,5 @@ public interface ClientService {
 
 	void remove(String id);
 
-	Client Contratacao(String idProduto, String idCliente);
+	Client Contratacao(Product produto, Client cliente);
 }
